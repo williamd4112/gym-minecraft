@@ -86,15 +86,14 @@ Basically these are [original Malmö missions](https://github.com/Microsoft/malm
 pip install gym
 ```
 
-3. Download and install [minecraft_py](https://github.com/tambetm/minecraft-py).
- ```
-git clone https://github.com/tambetm/minecraft-py.git
-cd minecraft-py
-# NB! `minecraft_py` should be installed to writable user directory, either in virtualenv or with `--user` option.
-python setup.py install
-```
+3. Download and install [Malmo](https://github.com/Microsoft/malmo).
 
-4. Download and install `gym-minecraft`:
+4. Setup ```MALMO_XSD_PATH``` and ```PYTHONPATH```
+```
+export MALMO_XSD_PATH={Malmo directory}/Schemas
+export PYTHONPATH={Malmo directory}/Python_Examples:$PYTHONPATH
+```
+5. Download and install `gym-minecraft`:
 
  ```
 git clone https://github.com/tambetm/gym-minecraft.git
@@ -104,26 +103,22 @@ python setup.py install
 
  `gym-minecraft` needs `pygame` to render Minecraft screen. It is best to have pygame installed via your system commands, i.e. `sudo apt-get install python-pygame` or `conda install pygame`. Otherwise setup will automatically download and compile `pygame`. This might need some additional dependencies though, see instructions for [Ubuntu](http://www.pygame.org/wiki/CompileUbuntu), [OSX](http://pygame.org/wiki/MacCompile) or [Windows](http://pygame.org/wiki/CompileWindows).
 
-5. Run once following snippet:
- ```
-import logging
-logging.basicConfig(level=logging.DEBUG)
-
-import minecraft_py
-
-proc, port = minecraft_py.start()
-minecraft_py.stop(proc)
-```
  Basically Minecraft downloads and compiles everything on first start, this snippet just starts `minecraft_py` in debug mode, so you can see when Minecraft gets stuck.
 
 ## Running
+
+```
+cd {Malmo directory}/Minecraft
+./launchClient.sh -port {port}
+
+```
 
 ```python
 import gym
 import gym_minecraft
 
 env = gym.make('MinecraftBasic-v0')
-env.init(start_minecraft=True)
+env.init()
 env.reset()
 
 done = False
