@@ -9,8 +9,8 @@ import gym
 from gym import spaces, error
 
 try:
-    import minecraft_py
-    #import MalmoPython
+    #import minecraft_py
+    import MalmoPython
 except ImportError as e:
     raise error.DependencyNotInstalled("{}. (HINT: install minecraft_py from https://github.com/tambetm/minecraft-py".format(e))
 
